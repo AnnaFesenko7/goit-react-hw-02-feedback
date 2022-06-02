@@ -1,76 +1,47 @@
 import s from './Feedback.module.css';
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class Feedback extends React.Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-    total: 0,
-    positive: 0,
+  static propTypes = {
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+    positive: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
-  handleGood = event => {
-    this.setState(
-      prevState => ({
-        good: prevState.good + 1,
-      }),
-      this.countTotalFeedback
-    );
+  handleBtn = event => {
+    const name = event.target.name;
+    const { onChange } = this.props;
+    onChange(name);
   };
-  handleNeutral = event => {
-    this.setState(
-      prevState => ({
-        neutral: prevState.neutral + 1,
-      }),
-      this.countTotalFeedback
-    );
-  };
-  handleBad = event => {
-    this.setState(
-      prevState => ({
-        bad: prevState.bad + 1,
-      }),
-      this.countTotalFeedback
-    );
-  };
-  countTotalFeedback = () => {
-    this.setState(
-      prevState => ({
-        total: prevState.total + 1,
-      }),
-      this.countPositiveFeedbackPercentage
-    );
-  };
-  countPositiveFeedbackPercentage = () => {
-    this.setState(prevState => ({
-      positive: (prevState.good / prevState.total) * 100,
-    }));
-  };
+
   render() {
+    const { good, neutral, bad, total, positive } = this.props;
     return (
       <div className={s.Feedback}>
         <b>Please leave feedback</b>
         <div className={s.buttonWrapper}>
-          <button type="button" onClick={this.handleGood}>
+          <button name="good" type="button" onClick={this.handleBtn}>
             Good
           </button>
-          <button type="button" onClick={this.handleNeutral}>
+          <button name="neutral" type="button" onClick={this.handleBtn}>
             Neutral
           </button>
-          <button type="button" onClick={this.handleBad}>
+          <button name="bad" type="button" onClick={this.handleBtn}>
             Bad
           </button>
         </div>
         <h1>Statistics</h1>
 
-        <span className={s.Counter__value}>Good:{this.state.good}</span>
-        <span className={s.Counter__value}>Neutral:{this.state.neutral}</span>
-        <span className={s.Counter__value}>Bad:{this.state.bad}</span>
-        <span className={s.Counter__value}>Total:{this.state.total}</span>
+        <span className={s.Counter__value}>Good:{good}</span>
+        <span className={s.Counter__value}>Neutral:{neutral}</span>
+        <span className={s.Counter__value}>Bad:{bad}</span>
+        <span className={s.Counter__value}>Total:{total}</span>
         <span className={s.Counter__value}>
-          Positive feedback:{Math.round(this.state.positive)}%
+          Positive feedback:{Math.round(positive)}%
         </span>
       </div>
     );

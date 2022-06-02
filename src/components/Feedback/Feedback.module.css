@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   width: 400px;
-  height: 200px;
 }
 .Counter__value {
   font-size: 50px;
