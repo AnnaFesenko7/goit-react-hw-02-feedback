@@ -1,6 +1,10 @@
 import s from './Feedback.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Statistics from 'components/Statistics/Statistics';
+import FeedbackOptions from 'components/FeedbackOptions/FeedbackOptions';
+import SectionTitle from 'components/SectionTitle/SectionTitle';
+import Notification from 'components/Notification/Notification';
 
 export default class Feedback extends React.Component {
   static propTypes = {
@@ -9,40 +13,30 @@ export default class Feedback extends React.Component {
     bad: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
     positive: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-  };
-
-  handleBtn = event => {
-    const name = event.target.name;
-    const { onChange } = this.props;
-    onChange(name);
+    onLeaveFeedback: PropTypes.func.isRequired,
   };
 
   render() {
-    const { good, neutral, bad, total, positive } = this.props;
+    const { good, neutral, bad, total, positive, onLeaveFeedback } = this.props;
     return (
       <div className={s.Feedback}>
-        <b>Please leave feedback</b>
-        <div className={s.buttonWrapper}>
-          <button name="good" type="button" onClick={this.handleBtn}>
-            Good
-          </button>
-          <button name="neutral" type="button" onClick={this.handleBtn}>
-            Neutral
-          </button>
-          <button name="bad" type="button" onClick={this.handleBtn}>
-            Bad
-          </button>
-        </div>
-        <h1>Statistics</h1>
+        <SectionTitle title="Please leave feedback">
+          <FeedbackOptions onLeaveFeedback={onLeaveFeedback} />
+        </SectionTitle>
 
-        <span className={s.Counter__value}>Good:{good}</span>
-        <span className={s.Counter__value}>Neutral:{neutral}</span>
-        <span className={s.Counter__value}>Bad:{bad}</span>
-        <span className={s.Counter__value}>Total:{total}</span>
-        <span className={s.Counter__value}>
-          Positive feedback:{Math.round(positive)}%
-        </span>
+        <SectionTitle title="Statistics">
+          {total === 0 ? (
+            <Notification message="There is no feedback" />
+          ) : (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positive={positive}
+            />
+          )}
+        </SectionTitle>
       </div>
     );
   }

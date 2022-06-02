@@ -10,7 +10,7 @@ export default class App extends Component {
     positive: 0,
   };
 
-  onChange = name => {
+  onLeaveFeedback = name => {
     this.setState(prevState => {
       for (const key in prevState) {
         if (key === name) {
@@ -45,7 +45,7 @@ export default class App extends Component {
             bad={this.state.bad}
             total={this.state.total}
             positive={this.state.positive}
-            onChange={this.onChange}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </div>
       </div>

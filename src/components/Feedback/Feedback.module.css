@@ -5,20 +5,3 @@
   justify-content: center;
   width: 400px;
 }
-.Counter__value {
-  font-size: 50px;
-  margin-bottom: 10px;
-}
-.Counter__value:last-child {
-  margin-bottom: 0;
-}
-.buttonWrapper {
-  display: flex;
-  align-items: center;
-}
-button {
-  background-color: teal;
-  color: #fff;
-  height: 50px;
-  width: 150px;
-}
