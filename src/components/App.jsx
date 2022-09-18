@@ -40,11 +40,12 @@ export default class App extends Component {
       <div>
         <div>
           <Feedback
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.state.total}
-            positive={this.state.positive}
+            state={this.state}
+            // good={this.state.good}
+            // neutral={this.state.neutral}
+            // bad={this.state.bad}
+            // total={this.state.total}
+            // positive={this.state.positive}
             onLeaveFeedback={this.onLeaveFeedback}
           />
         </div>
